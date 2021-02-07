@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Książki</title>
+
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- Main css file -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+</head>
+<body class="darkbg">
+    <nav class="navbar navbar-expand-lg navbar-dark darkbg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index.html">
+                <i class="fas fa-book redCol"></i>
+                <span class="ms-2">Książkowo<span class="redCol">.pl</span></span>
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbar"
+                aria-controls="navbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div
+                class="collapse navbar-collapse"
+                id="navbar">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" aria-current="page" href="book-list.html">Książki</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="categories.html">Kategorie</a>
+                </li>
+                </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="container p-0">
+        <div class="d-flex justify-content-between align-items-center px-2">
+            <h3 class="list__header my-4">Lista książek</h3>
+            <div class="d-flex align-items-center">
+                <span class="text-white mx-2">
+                    Liczba książek: <span id="BookCounter">...</span>
+                </span>
+                <button
+                    type="button"
+                    id="AddBtn"
+                    class="btn list__add-btn px-2"
+                    data-mdb-toggle="modal"
+                    data-mdb-target="#exampleModal"
+                    >
+                    Dodaj książkę
+                </button>
+            </div>
+        </div>
+        <div class="mb-2">
+            <button
+                type="button" 
+                class="btn btn-sm btn-light" 
+                data-mdb-toggle="modal"
+                data-mdb-target="#FilterBookModal">
+                <span>Filtuj</span>
+                <i class="fas fa-filter"></i>
+            </button>
+        </div>
+        <table class="table bg-light">
+            <thead id="tableHeader">
+              <tr>
+                <th data-property="Title" scope="col" class="px-3 bookProp">
+                    <span>Tytuł</span>
+                    <i class="fas fa-caret-down bookProp__icon--hidden"></i>
+                </th>
+                <th data-property="Author" scope="col" class="px-3 bookProp">
+                   <span>Autor</span>
+                   <i class="fas fa-caret-down bookProp__icon--hidden"></i>
+                </th>
+                <th data-property="Category" scope="col" class="px-3 bookProp">
+                    <span>Kategoria</span>
+                    <i class="fas fa-caret-down bookProp__icon--hidden"></i>
+                </th>
+                <th data-property="Priority" scope="col" class="px-3 bookProp ">
+                    <span>Priorytet</span>
+                    <i class="fas fa-caret-down"></i>
+                </th>
+                <th scope="col" class="px-3"></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+        <a class="ms-2 downloadBtn"
+            id="bookListDownload">Pobierz jako plik JSON</a>
+    </div>
+    
+    <!-- Add book Modal -->
+    <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dodaj książkę</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Anuluj"
+                ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="BookAddForm" class="px-3">
+                        <div class="form-outline my-4">
+                            <input type="text" id="bookTitle" name="title" class="form-control" />
+                            <label class="form-label" for="bookTitle">Tytuł książki</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="text" id="bookAuthor" name="author" class="form-control" />
+                            <label class="form-label" for="bookAuthor">Autor książki</label>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookCategory">Kategoria</label>
+                            <select name="category" id="bookCategory" name="bookCategory" class="form-select"> 
+                            </select>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookPriority">Priorytet</label>
+                            <div>
+                                <div class="priorityInputs">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="bookPriority" id="p1" value="1" checked/>
+                                        <label class="form-check-label" for="p1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="bookPriority" id="p2" value="2" />
+                                        <label class="form-check-label" for="p2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="bookPriority" id="p3" value="3" />
+                                        <label class="form-check-label" for="p3">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="bookPriority" id="p4" value="4"/>
+                                        <label class="form-check-label" for="p4">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="bookPriority" id="p5" value="5"/>
+                                        <label class="form-check-label" for="p5">5</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Anuluj
+                </button>
+                <button type="button" class="btn btn-primary" id="BookAddSubmitBtn" data-mdb-dismiss="modal">Dodaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit book Modal -->
+    <div
+        class="modal fade"
+        id="EditBookModal"
+        tabindex="-1"
+        aria-labelledby="EditBookModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="EditBookModalLabel">Edytuj książkę</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Anuluj"
+                ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="BookEditForm" class="px-3">
+                        <input id="bookId" name="bookId" type="hidden">
+                        <div class="form-outline my-4">
+                            <input type="text" id="bookTitle" name="title" class="form-control" />
+                            <label class="form-label" for="bookTitle">Tytuł książki</label>
+                        </div>
+                        <div class="form-outline my-3">
+                            <input type="text" id="bookAuthor" name="author" class="form-control" />
+                            <label class="form-label" for="bookAuthor">Autor książki</label>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookCategory">Kategoria</label>
+                            <select name="category" id="bookCategory" name="bookCategory" class="form-select"> 
+                            </select>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookPriority">Priorytet</label>
+                            <div class="priorityInputs">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p1" value="1"/>
+                                    <label class="form-check-label" for="p1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p2" value="2" />
+                                    <label class="form-check-label" for="p2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p3" value="3" />
+                                    <label class="form-check-label" for="p3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p4" value="4"/>
+                                    <label class="form-check-label" for="p4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p5" value="5"/>
+                                    <label class="form-check-label" for="p5">5</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Anuluj
+                </button>
+                <button type="button" class="btn btn-primary" id="BookEditSubmitBtn" data-mdb-dismiss="modal">Zapisz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter book Modal -->
+    <div
+        class="modal fade"
+        id="FilterBookModal"
+        tabindex="-1"
+        aria-labelledby="FilterBookModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="FilterBookModalLabel">Filtruj</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Anuluj"
+                ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="FilterForm" class="px-3">
+                        <div class="form-outline my-3">
+                            <input type="text" id="bookAuthor" name="author" class="form-control" />
+                            <label class="form-label" for="bookAuthor">Autor książki</label>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookCategory">Kategoria</label>
+                            <select name="category" id="bookCategory" name="bookCategory" class="form-select"> 
+                                <option value="" selected disabled hidden>Wybierz kategorię</option>
+                            </select>
+                        </div>
+                        <div class="my-3">
+                            <label class="form-label" for="bookPriority">Priorytet</label>
+                            <div class="priorityInputs">
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p1" value="1"/>
+                                    <label class="form-check-label" for="p1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p2" value="2" />
+                                    <label class="form-check-label" for="p2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p3" value="3" />
+                                    <label class="form-check-label" for="p3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p4" value="4"/>
+                                    <label class="form-check-label" for="p4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" class="form-check-input" name="bookPriority" id="p5" value="5"/>
+                                    <label class="form-check-label" for="p5">5</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Anuluj
+                </button>
+                <button type="button" class="btn btn-primary" id="FilterSubmitBtn" data-mdb-dismiss="modal">Filtruj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+</html>

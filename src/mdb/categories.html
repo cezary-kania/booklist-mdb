@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategorie książek</title>
+
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- Main css file -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+</head>
+<body class="darkbg">
+    <nav class="navbar navbar-expand-lg navbar-dark darkbg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index.html">
+                <i class="fas fa-book redCol"></i>
+                <span class="ms-2">Książkowo<span class="redCol">.pl</span></span>
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbar"
+                aria-controls="navbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div
+                class="collapse navbar-collapse"
+                id="navbar">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" aria-current="page" href="book-list.html">Książki</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="categories.html">Kategorie</a>
+                </li>
+                </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="container p-0">
+        <div class="d-flex justify-content-between align-items-center px-2">
+            <h3 class="list__header my-4">Lista kategorii</h3>
+            <div class="d-flex align-items-center">
+                <button
+                    type="button"
+                    id="AddBtn"
+                    class="btn list__add-btn px-2"
+                    data-mdb-toggle="modal"
+                    data-mdb-target="#categoryModal"
+                    >
+                    Dodaj kategorię
+                </button>
+            </div>
+        </div>
+        <table class="table bg-light">
+            <thead>
+              <tr>
+                <th scope="col" class="px-3">Kategoria</th>
+                <th scope="col" class="px-3">liczba książek</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+          </table>
+    </div>
+    
+    <!-- Add category Modal -->
+    <div
+        class="modal fade"
+        id="categoryModal"
+        tabindex="-1"
+        aria-labelledby="categoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">Dodaj kategorię</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Anuluj"
+                ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="CategoryAddForm" class="px-3">
+                        <div class="form-outline my-4">
+                            <input type="text" id="categoryName" name="categoryName" class="form-control" />
+                            <label class="form-label" for="categoryName">Nazwa kategorii</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                    Anuluj
+                </button>
+                <button type="button" class="btn btn-primary" id="categoryAddSubmitBtn" data-mdb-dismiss="modal">Dodaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+</html>
